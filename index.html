@@ -2,15 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رفع مجلة الصور</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>فن التقنية الحديثة - رفع المجلة</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="glass-container">
         <header>
             <h1>مجلة الصور الذكية</h1>
-            <p>ارفع 4 صور وسنقوم بدمجها لك لطباعتها بجودة عالية</p>
+            <p>اضغط على المربع لاختيار الصورة ثم قم بضبطها</p>
         </header>
 
         <section id="user-section">
@@ -19,27 +19,56 @@
             </div>
             
             <div class="upload-grid">
-                <div class="drop-zone" onclick="document.getElementById('img1').click()">
-                    <input type="file" id="img1" hidden accept="image/*">
-                    <span id="label1">+ صورة 1</span>
+                <div class="drop-zone" id="zone-0" onclick="openEditor(0)">
+                    <span id="label-0">+ صورة 1</span>
+                    <canvas id="prev-0" class="preview-canvas"></canvas>
                 </div>
-                <div class="drop-zone" onclick="document.getElementById('img2').click()">
-                    <input type="file" id="img2" hidden accept="image/*">
-                    <span id="label2">+ صورة 2</span>
+                <div class="drop-zone" id="zone-1" onclick="openEditor(1)">
+                    <span id="label-1">+ صورة 2</span>
+                    <canvas id="prev-1" class="preview-canvas"></canvas>
                 </div>
-                <div class="drop-zone" onclick="document.getElementById('img3').click()">
-                    <input type="file" id="img3" hidden accept="image/*">
-                    <span id="label3">+ صورة 3</span>
+                <div class="drop-zone" id="zone-2" onclick="openEditor(2)">
+                    <span id="label-2">+ صورة 3</span>
+                    <canvas id="prev-2" class="preview-canvas"></canvas>
                 </div>
-                <div class="drop-zone" onclick="document.getElementById('img4').click()">
-                    <input type="file" id="img4" hidden accept="image/*">
-                    <span id="label4">+ صورة 4</span>
+                <div class="drop-zone" id="zone-3" onclick="openEditor(3)">
+                    <span id="label-3">+ صورة 4</span>
+                    <canvas id="prev-3" class="preview-canvas"></canvas>
                 </div>
             </div>
 
-            <button id="process-btn" class="main-btn">إرسال للمطبعة (HD)</button>
-            <div id="status"></div>
+            <button id="process-btn" class="main-btn btn-3d">إرسال للمطبعة (HD)</button>
         </section>
+    </div>
+
+    <div id="editor-modal" class="modal">
+        <div class="modal-content glass-3d">
+            <h3>ضبط الصورة داخل الإطار</h3>
+            <div class="crop-container">
+                <canvas id="crop-canvas"></canvas>
+            </div>
+            <div class="editor-controls">
+                <label>التكبير / التصغير:</label>
+                <input type="range" id="zoom-slider" min="0.1" max="3" step="0.01" value="1">
+                <p>اسحب الصورة داخل الإطار لتحريكها</p>
+                <input type="file" id="file-input" hidden accept="image/*">
+                
+                <div class="btn-group">
+                    <button class="action-btn btn-3d blue-btn" onclick="document.getElementById('file-input').click()">تغيير الصورة</button>
+                    <button class="action-btn btn-3d green-btn" onclick="saveCrop()">تم الضبط</button>
+                    <button class="action-btn btn-3d red-btn" onclick="closeEditor()">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="modal">
+        <div class="alert-box glass-3d">
+            <div id="alert-icon">🔔</div>
+            <h3 id="alert-title">تنبيه</h3>
+            <p id="alert-message">رسالة التنبيه هنا</p>
+            <button class="action-btn btn-3d blue-btn" onclick="closeAlert()">حسناً</button>
+        </div>
     </div>
 
     <canvas id="a4-canvas" width="2480" height="3508" style="display:none;"></canvas>
