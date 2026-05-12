@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع مجلة الصور</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <h1>مجلة الصور الذكية</h1>
+            <p>ارفع 4 صور وسنقوم بدمجها لك لطباعتها بجودة عالية</p>
+        </header>
+
+        <section id="user-section">
+            <div class="user-info">
+                <input type="text" id="user-name" placeholder="أدخل اسمك الكريم" required>
+            </div>
+            
+            <div class="upload-grid">
+                <div class="drop-zone" onclick="document.getElementById('img1').click()">
+                    <input type="file" id="img1" hidden accept="image/*">
+                    <span id="label1">+ صورة 1</span>
+                </div>
+                <div class="drop-zone" onclick="document.getElementById('img2').click()">
+                    <input type="file" id="img2" hidden accept="image/*">
+                    <span id="label2">+ صورة 2</span>
+                </div>
+                <div class="drop-zone" onclick="document.getElementById('img3').click()">
+                    <input type="file" id="img3" hidden accept="image/*">
+                    <span id="label3">+ صورة 3</span>
+                </div>
+                <div class="drop-zone" onclick="document.getElementById('img4').click()">
+                    <input type="file" id="img4" hidden accept="image/*">
+                    <span id="label4">+ صورة 4</span>
+                </div>
+            </div>
+
+            <button id="process-btn" class="main-btn">إرسال للمطبعة (HD)</button>
+            <div id="status"></div>
+        </section>
+    </div>
+
+    <canvas id="a4-canvas" width="2480" height="3508" style="display:none;"></canvas>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
