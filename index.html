@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>فن التقنية الحديثة - رفع المجلة</title>
+    <title>مكتبة أثر - رفع المجلة</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glass-container">
+    <div id="splash-screen" class="splash">
+        <div class="logo-container">
+            <h1 class="logo-text">مكتبة أثر</h1>
+            <p>للطباعة والتصميم</p>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <div class="glass-container" id="main-app" style="display: none;">
         <header>
             <h1>مجلة الصور الذكية</h1>
-            <p>اضغط على المربع لاختيار الصورة ثم قم بضبطها</p>
         </header>
 
         <section id="user-section">
@@ -18,43 +25,23 @@
                 <input type="text" id="user-name" placeholder="أدخل اسمك الكريم" required>
             </div>
             
-            <div class="upload-grid">
-                <div class="drop-zone" id="zone-0" onclick="openEditor(0)">
-                    <span id="label-0">+ صورة 1</span>
-                    <canvas id="prev-0" class="preview-canvas"></canvas>
-                </div>
-                <div class="drop-zone" id="zone-1" onclick="openEditor(1)">
-                    <span id="label-1">+ صورة 2</span>
-                    <canvas id="prev-1" class="preview-canvas"></canvas>
-                </div>
-                <div class="drop-zone" id="zone-2" onclick="openEditor(2)">
-                    <span id="label-2">+ صورة 3</span>
-                    <canvas id="prev-2" class="preview-canvas"></canvas>
-                </div>
-                <div class="drop-zone" id="zone-3" onclick="openEditor(3)">
-                    <span id="label-3">+ صورة 4</span>
-                    <canvas id="prev-3" class="preview-canvas"></canvas>
-                </div>
-            </div>
+            <div id="templates-container"></div>
 
-            <button id="process-btn" class="main-btn btn-3d">إرسال للمطبعة (HD)</button>
+            <button class="action-btn btn-3d blue-btn" onclick="addNewTemplate()" style="margin-bottom: 20px;">+ إضافة صفحة جديدة (4 صور)</button>
+
+            <button id="process-btn" class="main-btn btn-3d">رفع الألبوم للمطبعة</button>
         </section>
     </div>
 
     <div id="editor-modal" class="modal">
         <div class="modal-content glass-3d">
             <h3>ضبط الصورة داخل الإطار</h3>
-            <div class="crop-container">
-                <canvas id="crop-canvas"></canvas>
-            </div>
+            <div class="crop-container"><canvas id="crop-canvas"></canvas></div>
             <div class="editor-controls">
-                <label>التكبير / التصغير:</label>
                 <input type="range" id="zoom-slider" min="0.1" max="3" step="0.01" value="1">
-                <p>اسحب الصورة داخل الإطار لتحريكها</p>
                 <input type="file" id="file-input" hidden accept="image/*">
-                
                 <div class="btn-group">
-                    <button class="action-btn btn-3d blue-btn" onclick="document.getElementById('file-input').click()">تغيير الصورة</button>
+                    <button class="action-btn btn-3d blue-btn" onclick="document.getElementById('file-input').click()">اختيار صورة</button>
                     <button class="action-btn btn-3d green-btn" onclick="saveCrop()">تم الضبط</button>
                     <button class="action-btn btn-3d red-btn" onclick="closeEditor()">إلغاء</button>
                 </div>
@@ -62,12 +49,23 @@
         </div>
     </div>
 
+    <div id="progress-modal" class="modal">
+        <div class="alert-box glass-3d">
+            <h3 style="color: #4ade80;">جاري الرفع...</h3>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">الرجاء عدم الخروج من التطبيق لحين اكتمال الرفع</p>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="progress-text">0 / 0 صور</p>
+        </div>
+    </div>
+
     <div id="custom-alert" class="modal">
         <div class="alert-box glass-3d">
             <div id="alert-icon">🔔</div>
             <h3 id="alert-title">تنبيه</h3>
-            <p id="alert-message">رسالة التنبيه هنا</p>
-            <button class="action-btn btn-3d blue-btn" onclick="closeAlert()">حسناً</button>
+            <p id="alert-message">رسالة</p>
+            <button class="action-btn btn-3d blue-btn" onclick="document.getElementById('custom-alert').style.display='none'">حسناً</button>
         </div>
     </div>
 
